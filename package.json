@@ -1,5 +1,5 @@
 {
-  "name": "demo-web",
+  "name": "agri-cloud-demo",
   "version": "0.0.1",
   "scripts": {
     "serve": "vite",

@@ -19,3 +19,9 @@ Cloud API 1.10.0 was released on 7 April 2024. For more information, please visi
 ## License
 
 Cloud API is MIT-licensed. Please refer to the LICENSE file for more information.
+
+### 问题解决
+安装依赖过程中报错： 
+  npm ERR! syscall getaddrinfo
+  stamp=1619133505879&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fwrappy%2Fdownload%2Fwrappy-1.0.2.tgz failed, reason: getaddrinfo ENOTFOUND registry.nlark.com
+解决：全局搜索这个源地址，替换成淘宝镜像

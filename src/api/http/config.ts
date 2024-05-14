@@ -1,13 +1,13 @@
 export const CURRENT_CONFIG = {
 
   // license
-  appId: 'Please enter the app id.', // You need to go to the development website to apply.
-  appKey: 'Please enter the app key.', // You need to go to the development website to apply.
-  appLicense: 'Please enter the app license.', // You need to go to the development website to apply.
+  appId: '146338', // You need to go to the development website to apply.
+  appKey: '103738ed1f0def305660a07933b15fb', // You need to go to the development website to apply.
+  appLicense: 'kSWCapzgu185rJvspvr2aED9x+7Juwqh+2PIa4FMOVpQcAmWp8K2Lug2QqdMfJ1UzJN8qNmeemQHTadANCBgwgURMmYTY2gOx++2Gzpn/WW9S2sOPYKlXSm3sDALU0091zSUmhze5GP25IQ6056ivVV+KZMYoy98x/Jjy44f618=', // You need to go to the development website to apply.
 
   // http
-  baseURL: 'Please enter the backend access address prefix.', // This url must end with "/". Example: 'http://192.168.1.1:6789/'
-  websocketURL: 'Please enter the WebSocket access address.', // Example: 'ws://192.168.1.1:6789/api/v1/ws'
+  baseURL: 'http://192.168.1.100:6789/', // This url must end with "/". Example: 'http://192.168.1.1:6789/'
+  websocketURL: 'ws://192.168.1.100:6789/api/v1/ws', // Example: 'ws://192.168.1.1:6789/api/v1/ws'
 
   // livestreaming
   // RTMP  Note: This IP is the address of the streaming server. If you want to see livestream on web page, you need to convert the RTMP stream to WebRTC stream.
@@ -31,6 +31,6 @@ export const CURRENT_CONFIG = {
 
   // map
   // You can apply on the AMap website.
-  amapKey: 'Please enter the amap key.',
+  amapKey: '638164e706b75fadb454edd5dd9f25dc',
 
 }
