@@ -1,10 +1,11 @@
 import { pinAMapPosition, MapGeographicPosition, Layer, LayerType, LayerElevationLoadStatus } from '/@/types/map'
 import { generatePoint, generateLine, generatePolygon, generateCircle } from '/@/utils/genjson'
 import { MapDoodleColor, MapElementEnum } from '/@/constants/map'
+// 生成点位位置对象
 function getPinPosition (pinAMapPosition: pinAMapPosition):MapGeographicPosition {
   return { height: 0, latitude: pinAMapPosition.lat, longitude: pinAMapPosition.lng }
 }
-
+// 
 export function generatePointContent (pinAMapPosition: pinAMapPosition) {
   const position = getPinPosition(pinAMapPosition)
   return {

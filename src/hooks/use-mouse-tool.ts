@@ -19,6 +19,8 @@ export function useMouseTool () {
     [EFlightAreaType.DFENCE]: '#19be6b',
     [EFlightAreaType.NFZ]: '#ff0000',
   }
+
+  // 画标注点
   function drawPin (type:MapDoodleType, getDrawCallback:Function) {
     root?.$mouseTool.marker({
       title: type + state.pinNum,
@@ -28,6 +30,7 @@ export function useMouseTool () {
     root?.$mouseTool.on('draw', getDrawCallback)
   }
 
+  // 画线
   function drawPolyline (type:MapDoodleType, getDrawCallback:Function) {
     root?.$mouseTool.polyline({
       strokeColor: '#2d8cf0',
@@ -38,7 +41,7 @@ export function useMouseTool () {
     })
     root?.$mouseTool.on('draw', getDrawCallback)
   }
-
+  // 画面
   function drawPolygon (type:MapDoodleType, getDrawCallback:Function) {
     root?.$mouseTool.polygon({
       strokeColor: '#2d8cf0',
@@ -50,12 +53,12 @@ export function useMouseTool () {
     })
     root?.$mouseTool.on('draw', getDrawCallback)
   }
-
+  // 关闭勾画功能
   function drawOff (type:MapDoodleType) {
     root?.$mouseTool.close()
     root?.$mouseTool.off('draw')
   }
-
+  // 画航行区域多边形
   function drawFlightAreaPolygon (type: EFlightAreaType, getDrawFlightAreaCallback: Function) {
     root?.$mouseTool.polygon({
       strokeColor: flightAreaColorMap[type],
@@ -72,7 +75,7 @@ export function useMouseTool () {
     })
     root?.$mouseTool.on('draw', getDrawFlightAreaCallback)
   }
-
+  // 画圆形航区
   function drawFlightAreaCircle (type: EFlightAreaType, getDrawFlightAreaCallback: Function) {
     root?.$mouseTool.circle({
       strokeColor: flightAreaColorMap[type],

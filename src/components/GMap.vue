@@ -574,6 +574,7 @@ export default defineComponent({
       }
       return 'color: red'
     })
+    // 当store中派发无人机状态（在线/离线）发生变化的方法时，控制地图增加和移除无人机点位标注
     watch(() => store.state.deviceStatusEvent,
       data => {
         if (Object.keys(data.deviceOnline).length !== 0) {
@@ -594,6 +595,7 @@ export default defineComponent({
       }
     )
 
+    // 无人机信息数据有变化时，操作tsa页面地图中的无人机标注移动到最新的位置，更新这个组件deviceInfo信息
     watch(() => store.state.deviceState, data => {
       if (data.currentType === EDeviceTypeName.Gateway && data.gatewayInfo[data.currentSn]) {
         const coordinate = wgs84togcj02(data.gatewayInfo[data.currentSn].longitude, data.gatewayInfo[data.currentSn].latitude)
@@ -620,7 +622,7 @@ export default defineComponent({
     }, {
       deep: true
     })
-
+    // 当地图标注，线，面派发 新增/更新/删除方法时，调用useGMapCoverHook 中新增点，线，面
     watch(
       () => store.state.wsEvent,
       newData => {
@@ -686,7 +688,7 @@ export default defineComponent({
         deep: true
       }
     )
-
+    // 调用useMouseToolHook鼠标勾画
     function draw (type: MapDoodleType, bool: boolean, flightAreaType?: EFlightAreaType) {
       state.currentType = type
       mouseMode.value = bool
@@ -715,7 +717,7 @@ export default defineComponent({
     function selectFlightAreaAction ({ type, isCircle }: { type: EFlightAreaType, isCircle: boolean }) {
       draw(isCircle ? MapDoodleEnum.CIRCLE : MapDoodleEnum.POLYGON, true, type)
     }
-
+    // 鼠标勾画的回调函数
     function getDrawCallback ({ obj }: { obj : any }) {
       if (state.isFlightArea) {
         getDrawFlightAreaCallback(obj)
@@ -735,16 +737,22 @@ export default defineComponent({
           break
       }
     }
+    /** 在地图上勾画点位的回调函数后，
+     * 把当前点位存到图层数组的对应图层的元素集合中去，
+     * 然后把坐标系转换成84去请求接口，把元素结构存到图层里，
+     * 在coverMap映射关系中加上当前元素属性信息 */
     async function postPinPositionResource (obj) {
       const req = getPinPositionResource(obj)
       setLayers(req)
       const coordinates = req.resource.content.geometry.coordinates
       updateCoordinates('gcj02-wgs84', req);
+      // 把高度 在加到这个数组中 [经度，纬度] ==》 [经度，纬度，高度]
       (req.resource.content.geometry.coordinates as GeojsonCoordinate).push((coordinates as GeojsonCoordinate)[2])
       const result = await postElementsReq(shareId.value, req)
       obj.setExtData({ id: req.id, name: req.name })
       store.state.coverMap[req.id] = [obj]
     }
+
     async function postPolylineResource (obj) {
       const req = getPolylineResource(obj)
       setLayers(req)
@@ -753,6 +761,7 @@ export default defineComponent({
       obj.setExtData({ id: req.id, name: req.name })
       store.state.coverMap[req.id] = [obj]
     }
+
     async function postPolygonResource (obj) {
       const req = getPoygonResource(obj)
       setLayers(req)
@@ -762,6 +771,7 @@ export default defineComponent({
       store.state.coverMap[req.id] = [obj]
     }
 
+    // 根据勾画的点位数据生成要成为图层的数据结构
     function getPinPositionResource (obj) {
       const position = obj.getPosition()
       const resource = generatePointContent(position)
@@ -773,6 +783,7 @@ export default defineComponent({
         resource
       }
     }
+
     function getPolylineResource (obj) {
       const path = obj.getPath()
       const resource = generateLineContent(path)
@@ -783,6 +794,7 @@ export default defineComponent({
         resource
       }
     }
+
     function getPoygonResource (obj) {
       const path = obj.getPath()
       const resource = generatePolyContent(path)
@@ -793,11 +805,14 @@ export default defineComponent({
         resource
       }
     }
+
     function getBaseInfo (obj) {
       const name = obj.title
       const id = uuidv4()
       return { name, id }
     }
+
+    // 勾画后通过该函数把当前勾画的元素加到对应类型的图层里面去
     function setLayers (resource: PostElementsBody) {
       const layers = store.state.Layers
       const layer = layers.find(item => item.id.includes(shareId.value))
@@ -809,12 +824,15 @@ export default defineComponent({
       console.log('layers', layers)
       store.commit('SET_LAYER_INFO', layers)
     }
+
     function closeLivestreamOthers () {
       store.commit('SET_LIVESTREAM_OTHERS_VISIBLE', false)
     }
+
     function closeLivestreamAgora () {
       store.commit('SET_LIVESTREAM_AGORA_VISIBLE', false)
     }
+    // 对你传入的当前元素进行地理坐标转换
     function updateCoordinates (transformType: string, element: any) {
       const geoType = element.resource?.content.geometry.type
       const type = element.resource?.type as number
@@ -876,6 +894,7 @@ export default defineComponent({
         }
       }
     }
+
     return {
       draw,
       mouseMode,

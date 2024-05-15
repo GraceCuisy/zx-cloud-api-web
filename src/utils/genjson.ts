@@ -53,7 +53,7 @@ export interface GeojsonCircle {
 }
 
 export type GeojsonFeature = GeojsonLine | GeojsonPolygon | GeojsonPoint | GeojsonCircle
-
+// 从一个带经纬度的对象组成coordinates数组 [经度，纬度，高度]
 export function geographic2Coordinate (position: MapGeographicPosition): GeojsonCoordinate {
   const coordinates: GeojsonCoordinate = [position.longitude, position.latitude]
   if (position.height !== undefined) coordinates.push(position.height)
@@ -81,7 +81,7 @@ export function generatePolygon (coordinates: MapGeographicPosition[], propertie
     },
   }
 }
-
+// 根据位置和属性信息对象生成点的GeojsonFeature
 export function generatePoint (position: MapGeographicPosition, properties: GeojsonPoint['properties']): GeojsonFeature {
   return {
     type: 'Feature',

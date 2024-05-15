@@ -26,7 +26,7 @@ export function useGMapCover () {
     root.$map.add(cover)
     coverMap[cover.getExtData().id] = [cover]
   }
-
+  // 根据当前选中的颜色获取对应点标注图标
   function getPinIcon (color?:string) {
     // console.log('color', color)
     const colorObj: {
@@ -47,7 +47,7 @@ export function useGMapCover () {
       // imageSize: new AMap.Size(40, 50)
     })
   }
-
+  // 初始化一个点位图标，添加到地图并通过store的coverMap管理起来
   function init2DPin (name: string, coordinates:GeojsonCoordinate, color?:string, data?:{}) {
     const pin = new AMap.Marker({
       position: new AMap.LngLat(coordinates[0], coordinates[1]),
@@ -60,12 +60,13 @@ export function useGMapCover () {
     // console.log('coordinates pin', pin)
     AddCoverToMap(pin)
   }
-
+  
   function AddOverlayGroup (overlayGroup) {
     root.$map.add(overlayGroup)
     const id = overlayGroup.getExtData().id
     coverMap[id] = [...(coverMap[id] || []), overlayGroup]
   }
+  // 初始化一个线勾画，添加到地图和store的coverMap中
   function initPolyline (name: string, coordinates:GeojsonCoordinate[], color?:string, data?:{}) {
     const path = [] as GeojsonCoordinate[]
     coordinates.forEach(coordinate => {
@@ -82,7 +83,7 @@ export function useGMapCover () {
     })
     AddOverlayGroup(polyline)
   }
-
+  // 初始化一个面，添加到地图和store的coverMap中
   function initPolygon (name: string, coordinates:GeojsonCoordinate[][], color?:string, data?:{}) {
     const path = [] as GeojsonCoordinate[]
     coordinates[0].forEach(coordinate => {
@@ -101,16 +102,16 @@ export function useGMapCover () {
     })
     AddOverlayGroup(Polygon)
   }
-
+  // 从地图和coverMap中移除一个点线面勾画
   function removeCoverFromMap (id:string) {
     coverMap[id].forEach(cover => root.$map.remove(cover))
     coverMap[id] = []
   }
-
+  // 根据当前id,从coverMap中获取对应的cover对象（勾画的点，线，面）
   function getElementFromMap (id:string): any[] {
     return coverMap[id]
   }
-
+  // 更新标注颜色，位置，名称等
   function updatePinElement (id:string, name: string, coordinates:GeojsonCoordinate, color?:string) {
     const elements = getElementFromMap(id)
     if (elements && elements.length > 0) {
@@ -127,7 +128,7 @@ export function useGMapCover () {
       })
     }
   }
-
+  // 更新线颜色
   function updatePolylineElement (id:string, name: string, coordinates:GeojsonCoordinate[], color?:string) {
     const elements = getElementFromMap(id)
     if (elements && elements.length > 0) {
@@ -142,7 +143,7 @@ export function useGMapCover () {
       })
     }
   }
-
+  // 更新面填充颜色和边框颜色
   function updatePolygonElement (id:string, name: string, coordinates:GeojsonCoordinate[][], color?:string) {
     const elements = getElementFromMap(id)
     if (elements && elements.length > 0) {
@@ -158,7 +159,7 @@ export function useGMapCover () {
       })
     }
   }
-
+  // 地图上添加文字信息
   function initTextInfo (content: string, coordinates: GeojsonCoordinate, id: string) {
     const info = new AMap.Text({
       text: content,
@@ -173,7 +174,7 @@ export function useGMapCover () {
     })
     AddOverlayGroup(info)
   }
-
+  // 初始化勾画飞行区域圆形区域
   function initFlightAreaCircle (name: string, radius: number, position: GeojsonCoordinate, data: { id: string, type: EFlightAreaType, enable: boolean }) {
     const circle = new AMap.Circle({
       strokeColor: data.enable ? flightAreaColorMap[data.type] : disableColor,
@@ -190,7 +191,7 @@ export function useGMapCover () {
     AddOverlayGroup(circle)
     initTextInfo(name, position, data.id)
   }
-
+  // 更新勾画飞行区域圆形区域
   function updateFlightAreaCircle (id: string, name: string, radius: number, position: GeojsonCoordinate, enable: boolean, type: EFlightAreaType) {
     const elements = getElementFromMap(id)
     if (elements && elements.length > 0) {
@@ -215,12 +216,12 @@ export function useGMapCover () {
       initFlightAreaCircle(name, radius, position, { id, type, enable })
     }
   }
-
+   // 计算面状图的位置
   function calcPolygonPosition (coordinate: GeojsonCoordinate[]): GeojsonCoordinate {
     const index = coordinate.length - 1
     return [(coordinate[0][0] + coordinate[index][0]) / 2.0, (coordinate[0][1] + coordinate[index][1]) / 2]
   }
-
+  // 初始化飞行区域多边形区域图层
   function initFlightAreaPolygon (name: string, coordinates: GeojsonCoordinate[], data: { id: string, type: EFlightAreaType, enable: boolean }) {
     const path = [] as GeojsonCoordinate[]
     coordinates.forEach(coordinate => {
@@ -241,7 +242,7 @@ export function useGMapCover () {
     AddOverlayGroup(polygon)
     initTextInfo(name, calcPolygonPosition(coordinates), data.id)
   }
-
+  // 更新飞行区域多边形区域图层
   function updateFlightAreaPolygon (id: string, name: string, coordinates: GeojsonCoordinate[], enable: boolean, type: EFlightAreaType) {
     const elements = getElementFromMap(id)
     if (elements && elements.length > 0) {

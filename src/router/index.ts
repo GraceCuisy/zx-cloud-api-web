@@ -11,7 +11,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     redirect: '/' + ERouterName.PROJECT
   },
-  // 首页
+  // 首页 登录页面
   {
     path: '/' + ERouterName.PROJECT,
     name: ERouterName.PROJECT,
@@ -52,6 +52,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('/@/pages/page-web/projects/tsa.vue')
       },
       {
+        // 实况视频流
         path: '/' + ERouterName.LIVESTREAM,
         name: ERouterName.LIVESTREAM,
         component: () => import('/@/pages/page-web/projects/livestream.vue'),
@@ -77,11 +78,13 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('/@/pages/page-web/projects/media.vue')
       },
       {
+        // 航线库
         path: '/' + ERouterName.WAYLINE,
         name: ERouterName.WAYLINE,
         component: () => import('/@/pages/page-web/projects/wayline.vue')
       },
       {
+        // 飞行任务库
         path: '/' + ERouterName.TASK,
         name: ERouterName.TASK,
         component: () => import('/@/pages/page-web/projects/task.vue'),
@@ -105,6 +108,7 @@ const routes: Array<RouteRecordRaw> = [
         ]
       },
       {
+        // 自定义飞行区
         path: '/' + ERouterName.FLIGHT_AREA,
         name: ERouterName.FLIGHT_AREA,
         component: () => import('/@/pages/page-web/projects/flight-area.vue')

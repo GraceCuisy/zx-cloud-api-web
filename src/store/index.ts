@@ -206,6 +206,7 @@ const mutations: MutationTree<RootStateType> = {
 }
 
 const actions: ActionTree<RootStateType, RootStateType> = {
+  // 从接口拿到所有图层数据
   async getAllElement ({ commit }) {
     const result = await getLayers({
       groupId: '',
@@ -214,6 +215,7 @@ const actions: ActionTree<RootStateType, RootStateType> = {
     commit('SET_LAYER_INFO', result.data?.list)
     console.log(result)
   },
+  // 更新其中一个图层的勾选状态
   updateElement ({ state }, content: {type: 'is_check' | 'is_select', id: string, bool:boolean}) {
     const key = content.id.replaceAll('resource__', '')
     const type = content.type
@@ -223,6 +225,7 @@ const actions: ActionTree<RootStateType, RootStateType> = {
       layer[type] = content.bool
     }
   },
+  // 获取地图底图信息？
   setLayerInfo ({ state }, layers) {
     // const layers = state.Layers
     const obj:{
