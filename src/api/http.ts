@@ -18,7 +18,7 @@ export function bindCommonRequestInterceptors (instance: AxiosInstance): void {
   })
 }
 
-// Unified response interceptor
+// Unified（统一的） response interceptor
 export function bindCommonResponseInterceptors (instance: AxiosInstance): void {
   instance.interceptors.response.use(config => {
     return config

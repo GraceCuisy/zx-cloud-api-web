@@ -2,8 +2,14 @@ import AMapLoader from '@amap/amap-jsapi-loader'
 import { App, reactive } from 'vue'
 import { AMapConfig } from '/@/constants/index'
 
+interface State {
+  aMap: any;
+  map: any;
+  mouseTool: any;
+}
+
 export function useGMapManage () {
-  const state = reactive({
+  const state:State = reactive({
     aMap: null, // Map类
     map: null, // 地图对象
     mouseTool: null,

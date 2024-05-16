@@ -503,7 +503,6 @@ export default defineComponent({
     const useMouseToolHook = useMouseTool()
     const useGMapManageHook = useGMapManage()
     const deviceTsaUpdateHook = deviceTsaUpdate()
-    const root = getRoot()
 
     const mouseMode = ref(false)
     const store = useMyStore()
@@ -548,9 +547,6 @@ export default defineComponent({
     })
     const shareId = computed(() => {
       return store.state.layerBaseInfo.share
-    })
-    const defaultId = computed(() => {
-      return store.state.layerBaseInfo.default
     })
     const drawVisible = computed(() => {
       return store.state.drawVisible
@@ -748,7 +744,6 @@ export default defineComponent({
       updateCoordinates('gcj02-wgs84', req);
       // 把高度 在加到这个数组中 [经度，纬度] ==》 [经度，纬度，高度]
       (req.resource.content.geometry.coordinates as GeojsonCoordinate).push((coordinates as GeojsonCoordinate)[2])
-      const result = await postElementsReq(shareId.value, req)
       obj.setExtData({ id: req.id, name: req.name })
       store.state.coverMap[req.id] = [obj]
     }
@@ -757,7 +752,6 @@ export default defineComponent({
       const req = getPolylineResource(obj)
       setLayers(req)
       updateCoordinates('gcj02-wgs84', req)
-      const result = await postElementsReq(shareId.value, req)
       obj.setExtData({ id: req.id, name: req.name })
       store.state.coverMap[req.id] = [obj]
     }
@@ -766,7 +760,6 @@ export default defineComponent({
       const req = getPoygonResource(obj)
       setLayers(req)
       updateCoordinates('gcj02-wgs84', req)
-      const result = await postElementsReq(shareId.value, req)
       obj.setExtData({ id: req.id, name: req.name })
       store.state.coverMap[req.id] = [obj]
     }
@@ -834,7 +827,6 @@ export default defineComponent({
     }
     // 对你传入的当前元素进行地理坐标转换
     function updateCoordinates (transformType: string, element: any) {
-      const geoType = element.resource?.content.geometry.type
       const type = element.resource?.type as number
       if (element.resource) {
         if (MapElementEnum.PIN === type) {
