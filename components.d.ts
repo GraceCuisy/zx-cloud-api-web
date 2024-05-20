@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    copy: typeof import('./src/components/common/topbar copy.vue')['default']
     CreatePlan: typeof import('./src/components/task/CreatePlan.vue')['default']
     DeviceFirmwareStatus: typeof import('./src/components/devices/DeviceFirmwareStatus.vue')['default']
     DeviceFirmwareUpgrade: typeof import('./src/components/devices/device-upgrade/DeviceFirmwareUpgrade.vue')['default']
@@ -40,5 +41,6 @@ declare module 'vue' {
     TaskPanel: typeof import('./src/components/task/TaskPanel.vue')['default']
     Title: typeof import('./src/components/workspace/Title.vue')['default']
     Topbar: typeof import('./src/components/common/topbar.vue')['default']
+    TopbarNew: typeof import('./src/components/common/topbar-new.vue')['default']
   }
 }

@@ -19,9 +19,6 @@ const routes: Array<RouteRecordRaw> = [
   },
   // members, devices
   {
-    // path: '/' + ERouterName.SYSTEM,
-    // name: ERouterName.SYSTEM,
-    // component: () => import('/@/pages/page-web/system.vue'),
     path: '/' + ERouterName.HOME,
     name: ERouterName.HOME,
     component: () => import('/@/pages/page-web/home.vue'),

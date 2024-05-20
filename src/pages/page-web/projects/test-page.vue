@@ -7,6 +7,12 @@
     </div>
     <div class="right-wrap">
       <el-amap :center="center" :zoom="zoom" @init="init">
+        <!-- <el-amap-layer-wms
+          :visible="true"
+          :url="wmsUrl"
+          :blend="false"
+          :params="{}"
+        /> -->
         <!-- <el-amap-layer-satellite :visible="visible" /> -->
         <!-- url必须是在线图片地址，用本地图片显示不出来 -->
         <el-amap-layer-image
@@ -14,18 +20,30 @@
           :bounds="imgBounds"
           :visible="true"
         />
+        <!-- <el-amap-geojson
+          :geo="testLandDataGcj02"
+          :polygon-options="polygonOptions1"
+          :visible="true"
+          :draggable="false"
+        /> -->
+        <el-amap-geojson
+          :geo="testLandData"
+          :polygon-options="polygonOptions1"
+          :visible="true"
+          :draggable="false"
+        />
         <el-amap-geojson
           :geo="testGeojsonData"
           :polygon-options="polygonOptions"
           :visible="true"
           :draggable="false"
         />
-        <el-amap-mouse-tool
+        <!-- <el-amap-mouse-tool
           v-if="created"
           :type="type"
           :auto-clear="false"
           @draw="draw"
-        />
+        /> -->
       </el-amap>
     </div>
   </div>
@@ -39,13 +57,300 @@ import {
   ElAmap,
   ElAmapLayerSatellite,
   ElAmapMouseTool,
-  ElAmapLayerImage
+  ElAmapLayerImage,
 } from '@vuemap/vue-amap'
 import testImg from '/@/assets/imgs/testImg2.jpg'
+import { wgs84togcj02 } from '/@/vendors/coordtransform'
+import { GeojsonCoordinate } from '/@/types/map'
+// const testLandData = require('/@/assets/data/test_land_data.json.json')
+const testLandData = reactive({
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.1',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.28458013, 39.94265389],
+              [116.28456683, 39.94271927],
+              [116.28474416, 39.94274587],
+              [116.28476078, 39.9426827],
+              [116.28458013, 39.94265389],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: { id: 1, name: '1#平台' },
+    },
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.2',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.2845624, 39.94273257],
+              [116.28449258, 39.94300853],
+              [116.2846699, 39.94303624],
+              [116.28473861, 39.94276028],
+              [116.2845624, 39.94273257],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: { id: 2, name: '2#平台' },
+    },
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.3',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.28451474, 39.94251646],
+              [116.28439838, 39.94299967],
+              [116.28448039, 39.94301075],
+              [116.28459786, 39.94253198],
+              [116.28451474, 39.94251646],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: { id: 3, name: '3#平台' },
+    },
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.4',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.28442054, 39.94250095],
+              [116.28430528, 39.94298083],
+              [116.28438729, 39.94299523],
+              [116.28450699, 39.94251868],
+              [116.28442054, 39.94250095],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: { id: 4, name: '4#平台' },
+    },
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.5',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.28442719, 39.942481],
+              [116.28458456, 39.94251203],
+              [116.28459565, 39.94245329],
+              [116.28443938, 39.94242891],
+              [116.28442719, 39.942481],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: { id: 5, name: '旱棚' },
+    },
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.6',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.28444271, 39.94241339],
+              [116.28457127, 39.94243556],
+              [116.28458235, 39.94238568],
+              [116.28445268, 39.9423613],
+              [116.28444271, 39.94241339],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: { id: 6, name: '小温室' },
+    },
+  ],
+  totalFeatures: 6,
+  numberMatched: 6,
+  numberReturned: 6,
+  timeStamp: '2024-05-20T10:21:01.001Z',
+  crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:EPSG::3857' } },
+})
+const testLandDataGcj02 = reactive({
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.1',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.29063341283336, 39.94389358806295],
+              [116.29062010315656, 39.94395895425674],
+              [116.29079767479531, 39.943985774385325],
+              [116.29081430931588, 39.94392262245981],
+              [116.29063341283336, 39.94389358806295],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: {
+        id: 1,
+        name: '1#平台',
+      },
+    },
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.2',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.29061566887762, 39.9439722493231],
+              [116.29054578981535, 39.94424813427019],
+              [116.29072335106108, 39.944276064044686],
+              [116.29079211911503, 39.94400017808631],
+              [116.29061566887762, 39.9439722493231],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: {
+        id: 2,
+        name: '2#平台',
+      },
+    },
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.3',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.29056791809096, 39.94375607203628],
+              [116.29045146289128, 39.94423915812379],
+              [116.2905335837908, 39.94425033935899],
+              [116.29065115140959, 39.943771695097084],
+              [116.29056791809096, 39.94375607203628],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: {
+        id: 3,
+        name: '3#平台',
+      },
+    },
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.4',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.29047359025596, 39.94374044556468],
+              [116.29035823653669, 39.94422020319007],
+              [116.29044035754815, 39.944234704332565],
+              [116.29056015799654, 39.94375828258279],
+              [116.29047359025596, 39.94374044556468],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: {
+        id: 4,
+        name: '4#平台',
+      },
+    },
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.5',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.29048024664414, 39.943720502943634],
+              [116.29063783108066, 39.94375172789997],
+              [116.29064892862996, 39.943692999249386],
+              [116.29049244642303, 39.94366842585754],
+              [116.29048024664414, 39.943720502943634],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: {
+        id: 5,
+        name: '旱棚',
+      },
+    },
+    {
+      type: 'Feature',
+      id: '高德地图矢量图层.6',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [116.29049577893446, 39.943652909334844],
+              [116.29062451372269, 39.94367523847838],
+              [116.29063560235784, 39.94362537016241],
+              [116.29050575575498, 39.94360082952467],
+              [116.29049577893446, 39.943652909334844],
+            ],
+          ],
+        ],
+      },
+      geometry_name: 'the_geom',
+      properties: {
+        id: 6,
+        name: '小温室',
+      },
+    },
+  ],
+  totalFeatures: 4,
+  numberMatched: 4,
+  numberReturned: 4,
+  timeStamp: '2024-05-20T06:26:29.952Z',
+  // crs: {
+  //   type: 'name',
+  //   properties: {
+  //     // name: 'urn:ogc:def:crs:EPSG::4326',
+  //   },
+  // },
+})
 
 const zoom = ref(12)
 // const center = ref([121.59996, 31.197646])
-const center = ref([116.209477587705379, 40.075038208603736])
+// const center = ref([116.209477587705379, 40.075038208603736])
+const center = ref([116.29098549, 39.94893301])
 let map: any = null
 const visible = ref(true)
 const type = ref('polygon')
@@ -54,9 +359,15 @@ const polygonOptions = ref({
   strokeColor: 'red',
   fillColor: 'blue',
 })
+const polygonOptions1 = ref({
+  strokeColor: 'green',
+  fillColor: 'yellow',
+})
 // const imgBounds = ref([116.201, 40.036, 116.207, 40.04])
 const imgBounds = ref([116.157, 40.078, 116.241, 40.16])
 
+const wmsUrl =
+  'http://192.168.30.195:8080/geoserver/gistest/wms?service=WMS&version=1.1.0&request=GetMap&layers=gistest%3A%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E6%88%AA%E5%9B%BE%E5%88%92%E5%9C%B0%E5%9D%97&bbox=116.29070278470428%2C39.94880769125241%2C116.29116035909607%2C39.94933375607863&width=668&height=768&srs=EPSG%3A4326&styles=&format=application/openlayers'
 // const imgBounds = ref([116.1268334960938, 39.85549947738647, 116.3035329208374, 40.26972852706909])
 
 const testGeojsonData = reactive({
@@ -149,6 +460,19 @@ const testGeojsonData = reactive({
   ],
 })
 
+onMounted(() => {
+  const testLandDataFeaturesGcj02 = testLandData.features.map((i, index) => {
+    const coordinates = i.geometry.coordinates[0][0]
+    coordinates.forEach((coordinate, i, arr) => {
+      arr[i] = wgs84togcj02(coordinate[0], coordinate[1]) as GeojsonCoordinate
+    })
+    i.geometry.coordinates[0][0] = coordinates
+    return i
+  })
+  console.log('first', testLandDataFeaturesGcj02)
+  // @ts-ignore
+  testLandDataGcj02.features = testLandDataFeaturesGcj02
+})
 const init = (e: any) => {
   map = e
   console.log('map init: ', map)
@@ -178,8 +502,6 @@ const draw = (e: number[][], target: any) => {
   sampleFeature.geometry.coordinates = [e]
   testGeojsonData.features.push(sampleFeature)
 }
-
-onMounted(() => {})
 </script>
 <style scoped>
 .test-page-container {

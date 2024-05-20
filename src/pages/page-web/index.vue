@@ -55,6 +55,7 @@ import { getRoot } from '/@/root'
 import { ELocalStorageKey, ERouterName, EUserType } from '/@/types'
 import router from '/@/router'
 
+// 登录页
 const root = getRoot()
 
 const formState: UnwrapRef<LoginBody> = reactive({

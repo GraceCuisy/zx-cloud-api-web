@@ -24,7 +24,8 @@ export enum ERouterName {
     PILOT_BIND = 'pilot-bind',
 
 
-    TEST_PAGE='test-page'
+    TEST_PAGE='test-page',
+    SYSTEM = 'system',
 }
 
 export enum EStorageKey {
