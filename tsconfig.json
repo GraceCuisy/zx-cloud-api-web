@@ -25,6 +25,9 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue", 
-    "src/vendors/coordtransform.js"  
+    "src/vendors/coordtransform.js",
+    "./node_modules/@vuemap/vue-amap/global.d.ts",
+    "./node_modules/@vuemap/vue-amap-loca/global.d.ts",
+    "./node_modules/@vuemap/vue-amap-extra/global.d.ts"
   ]
 }

@@ -1,4 +1,5 @@
 import { createApp, ComponentCustomProperties, App as VueApp } from 'vue'
+
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $aMap: any // Map类

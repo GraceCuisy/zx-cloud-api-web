@@ -60,7 +60,7 @@ export function useGMapCover () {
     // console.log('coordinates pin', pin)
     AddCoverToMap(pin)
   }
-  
+
   function AddOverlayGroup (overlayGroup) {
     root.$map.add(overlayGroup)
     const id = overlayGroup.getExtData().id
@@ -216,7 +216,7 @@ export function useGMapCover () {
       initFlightAreaCircle(name, radius, position, { id, type, enable })
     }
   }
-   // 计算面状图的位置
+  // 计算面状图的位置
   function calcPolygonPosition (coordinate: GeojsonCoordinate[]): GeojsonCoordinate {
     const index = coordinate.length - 1
     return [(coordinate[0][0] + coordinate[index][0]) / 2.0, (coordinate[0][1] + coordinate[index][1]) / 2]

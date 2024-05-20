@@ -37,6 +37,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/' + ERouterName.FIRMWARES,
         name: ERouterName.FIRMWARES,
         component: () => import('../pages/page-web/projects/Firmwares.vue')
+      },
+      {
+        path: '/' + ERouterName.TEST_PAGE,
+        name: ERouterName.TEST_PAGE,
+        component: () => import('../pages/page-web/projects/test-page.vue')
       }
     ]
   },

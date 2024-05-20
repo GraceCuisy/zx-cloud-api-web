@@ -19,7 +19,7 @@ export default defineComponent({
   setup () {
     const store = useMyStore()
     return {}
-  }
+  },
 })
 </script>
 <style lang="scss" scoped>
@@ -37,6 +37,6 @@ export default defineComponent({
 <style lang="scss">
 #demo-app {
   width: 100%;
-  height: 100%
+  height: 100%;
 }
 </style>

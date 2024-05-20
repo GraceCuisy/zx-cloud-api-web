@@ -5,7 +5,7 @@ import { MapDoodleColor, MapElementEnum } from '/@/constants/map'
 function getPinPosition (pinAMapPosition: pinAMapPosition):MapGeographicPosition {
   return { height: 0, latitude: pinAMapPosition.lat, longitude: pinAMapPosition.lng }
 }
-// 
+//
 export function generatePointContent (pinAMapPosition: pinAMapPosition) {
   const position = getPinPosition(pinAMapPosition)
   return {

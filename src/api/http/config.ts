@@ -31,6 +31,7 @@ export const CURRENT_CONFIG = {
 
   // map
   // You can apply on the AMap website.
-  amapKey: '638164e706b75fadb454edd5dd9f25dc',
+  amapKey: 'a98ed26182be6fb456147ec3377602a2',
+  amapSecurityJsCode: '43dd897548529fe0dfaa63ce6fb0b22d',
 
 }

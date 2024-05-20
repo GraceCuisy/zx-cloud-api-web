@@ -2,18 +2,29 @@ import vue from '@vitejs/plugin-vue'
 // config alias
 import path from 'path'
 import { ConfigEnv, defineConfig, UserConfigExport } from 'vite'
-import ViteComponents, { AntDesignVueResolver } from 'vite-plugin-components'
+import ViteComponents, { AntDesignVueResolver} from 'vite-plugin-components'
 // Introduce eslint plugin
 import eslintPlugin from 'vite-plugin-eslint'
 import OptimizationPersist from 'vite-plugin-optimize-persist'
 import PkgConfig from 'vite-plugin-package-config'
 import viteSvgIcons from 'vite-plugin-svg-icons'
 import { viteVConsole } from 'vite-plugin-vconsole'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { VueAmapResolver } from '@vuemap/unplugin-resolver'
 
 // https://vitejs.dev/config/
 export default ({ command, mode }: ConfigEnv): UserConfigExport => defineConfig({
   plugins: [
     vue(),
+    AutoImport({
+      // @ts-ignore
+      resolvers: [VueAmapResolver()],
+    }),
+    Components({
+      // @ts-ignore
+      resolvers: [VueAmapResolver()],
+    }),
     eslintPlugin({
       fix: true
     }),
