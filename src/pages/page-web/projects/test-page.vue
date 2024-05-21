@@ -32,12 +32,12 @@
           :visible="true"
           :draggable="false"
         />
-        <el-amap-geojson
+        <!-- <el-amap-geojson
           :geo="testGeojsonData"
           :polygon-options="polygonOptions"
           :visible="true"
           :draggable="false"
-        />
+        /> -->
         <!-- <el-amap-mouse-tool
           v-if="created"
           :type="type"
@@ -461,17 +461,17 @@ const testGeojsonData = reactive({
 })
 
 onMounted(() => {
-  const testLandDataFeaturesGcj02 = testLandData.features.map((i, index) => {
-    const coordinates = i.geometry.coordinates[0][0]
-    coordinates.forEach((coordinate, i, arr) => {
-      arr[i] = wgs84togcj02(coordinate[0], coordinate[1]) as GeojsonCoordinate
-    })
-    i.geometry.coordinates[0][0] = coordinates
-    return i
-  })
-  console.log('first', testLandDataFeaturesGcj02)
-  // @ts-ignore
-  testLandDataGcj02.features = testLandDataFeaturesGcj02
+  // const testLandDataFeaturesGcj02 = testLandData.features.map((i, index) => {
+  //   const coordinates = i.geometry.coordinates[0][0]
+  //   coordinates.forEach((coordinate, i, arr) => {
+  //     arr[i] = wgs84togcj02(coordinate[0], coordinate[1]) as GeojsonCoordinate
+  //   })
+  //   i.geometry.coordinates[0][0] = coordinates
+  //   return i
+  // })
+  // console.log('first', testLandDataFeaturesGcj02)
+  // // @ts-ignore
+  // testLandDataGcj02.features = testLandDataFeaturesGcj02
 })
 const init = (e: any) => {
   map = e

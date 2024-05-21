@@ -13,11 +13,15 @@ import '@vuemap/vue-amap/dist/style.css'
 import '/@/styles/index.scss'
 
 // 初始化vue-amap
-initAMapApiLoader({
-  // 高德的key
-  key: AMapConfig.key,
-  securityJsCode: AMapConfig.securityJsCode, // 新版key需要配合安全密钥使用
-})
+initAMapApiLoader(
+  // {
+  // // 高德的key
+  // key: AMapConfig.key,
+  // securityJsCode: AMapConfig.securityJsCode, // 新版key需要配合安全密钥使用
+
+  // }
+  AMapConfig
+)
 
 const app = createInstance(App)
 
