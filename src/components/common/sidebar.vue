@@ -72,7 +72,7 @@ export default defineComponent({
     function goHome () {
       // root.$router.push('/' + ERouterName.MEMBERS)
       // root.$router.push('/' + ERouterName.AGRI_HOME)
-      root.$router.push('/' + ERouterName.AGRI_LAND)
+      root.$router.push('/' + ERouterName.AGRI_HOME)
     }
 
     return {

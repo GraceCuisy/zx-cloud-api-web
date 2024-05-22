@@ -9,12 +9,12 @@ import LiveOthers from '/@/components/livestream-others.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/' + ERouterName.PROJECT
+    redirect: '/' + ERouterName.LOGIN
   },
   // 首页 登录页面
   {
-    path: '/' + ERouterName.PROJECT,
-    name: ERouterName.PROJECT,
+    path: '/' + ERouterName.LOGIN,
+    name: ERouterName.LOGIN,
     component: () => import('/@/pages/page-web/index.vue')
   },
   // members, devices

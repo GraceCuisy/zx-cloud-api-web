@@ -81,7 +81,7 @@ function selectedRoute (path: string) {
 
 const logout = () => {
   localStorage.clear()
-  root.$router.push(ERouterName.PROJECT)
+  root.$router.push(ERouterName.LOGIN)
 }
 </script>
 

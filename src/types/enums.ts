@@ -1,6 +1,6 @@
 export enum ERouterName {
     ELEMENT = 'element',
-    PROJECT = 'project',
+    LOGIN = 'login',
     HOME = 'home',
     TSA = 'tsa',
     LAYER = 'layer',
@@ -74,14 +74,15 @@ export enum ERouterChineseName {
     AGRI_LAND_INFO='农田地块信息',
     AGRI_LAND_SECTION='小区管理',
     AGRI_BASE_MAP_DRAW='地块底图绘制',
-    AGRI_EXPERIMENT='实验信息',
+    AGRI_EXPERIMENT='实验资料',
     AGRI_UAV='无人机数据采集',
     AGRI_COMPUTE='计算服务',
     AGRI_IMG_JOINT='图像拼接',
     AGRI_THREE_CLOUD='三维点云重建',
     AGRI_LAND_IDENTIFY='地块识别',
     AGRI_SECTION_IDENTIFY='小区识别',
-    AGRI_OTHER_INDEX='其他表型指标'
+    AGRI_OTHER_INDEX='其他表型指标',
+    LOGIN = '登录'
 }
 
 export enum EStorageKey {

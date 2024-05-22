@@ -69,7 +69,7 @@ instance.interceptors.response.use(
       const flag: number = Number(localStorage.getItem(ELocalStorageKey.Flag))
       switch (flag) {
         case EUserType.Web:
-          router.push(ERouterName.PROJECT)
+          router.push(ERouterName.LOGIN)
           break
         case EUserType.Pilot:
           router.push(ERouterName.PILOT)

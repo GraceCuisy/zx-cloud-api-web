@@ -63,7 +63,7 @@ useConnectWebSocket(messageHandler)
 onMounted(() => {
   const token = localStorage.getItem(ELocalStorageKey.Token)
   if (!token) {
-    root.$router.push(ERouterName.PROJECT)
+    root.$router.push(ERouterName.LOGIN)
   }
 })
 

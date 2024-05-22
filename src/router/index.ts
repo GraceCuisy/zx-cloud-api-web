@@ -9,12 +9,12 @@ import LiveOthers from '/@/components/livestream-others.vue'
 const routes1: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/' + ERouterName.PROJECT
+    redirect: '/' + ERouterName.LOGIN
   },
   // 首页 登录页面
   {
-    path: '/' + ERouterName.PROJECT,
-    name: ERouterName.PROJECT,
+    path: '/' + ERouterName.LOGIN,
+    name: ERouterName.LOGIN,
     component: () => import('/@/pages/page-web/index.vue')
   },
   // members, devices
@@ -157,12 +157,12 @@ const routes1: Array<RouteRecordRaw> = [
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/' + ERouterName.PROJECT
+    redirect: '/' + ERouterName.LOGIN
   },
   // 首页 登录页面
   {
-    path: '/' + ERouterName.PROJECT,
-    name: ERouterChineseName.PROJECT,
+    path: '/' + ERouterName.LOGIN,
+    name: ERouterChineseName.LOGIN,
     component: () => import('/@/pages/page-web/index.vue')
   },
   {
@@ -180,12 +180,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/' + ERouterName.AGRI_LAND_INFO,
         name: ERouterChineseName.AGRI_LAND_INFO,
         component: () => import('../pages/page-web/agri-projects/developing-page.vue'),
-        children: [
-          {
-            path: '/' + 'agri-land-info-test',
-            name: 'agri-land-info-test',
-            component: () => import('../pages/page-web/agri-projects/developing-page.vue'),
-          }]
+        // children: [
+        //   {
+        //     path: '/' + 'agri-land-info-test',
+        //     name: 'agri-land-info-test',
+        //     component: () => import('../pages/page-web/agri-projects/developing-page.vue'),
+        //   }]
       },
       {
         path: '/' + ERouterName.AGRI_LAND_SECTION,
