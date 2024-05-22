@@ -23,9 +23,65 @@ export enum ERouterName {
     PILOT_LIVESHARE = 'pilot-liveshare',
     PILOT_BIND = 'pilot-bind',
 
+    TEST_PAGE='test-page',
+    SYSTEM = 'system',
+    // 首页
+    AGRI_HOME='agri-home',
+    AGRI_LAND='agri-land',
+    AGRI_LAND_INFO='agri-land-info',
+    AGRI_LAND_SECTION='agri-land-section',
+    AGRI_BASE_MAP_DRAW='agri-base-map-draw',
+    AGRI_EXPERIMENT='agri-experiment',
+    AGRI_UAV='agri-uav',
+    AGRI_COMPUTE='agri-compute',
+    AGRI_IMG_JOINT='agri-img-joint',
+    AGRI_THREE_CLOUD='agri-three-cloud',
+    AGRI_LAND_IDENTIFY='agri-land-identify',
+    AGRI_SECTION_IDENTIFY='agri-section-identify',
+    AGRI_OTHER_INDEX='agri-other-index'
+}
+
+export enum ERouterChineseName {
+    ELEMENT = 'element',
+    PROJECT = 'project',
+    HOME = 'home',
+    TSA = 'tsa',
+    LAYER = 'layer',
+    MEDIA = 'media',
+    WAYLINE = 'wayline',
+    LIVESTREAM = 'livestream',
+    LIVING = 'living',
+    WORKSPACE = 'workspace',
+    MEMBERS = 'members',
+    DEVICES = 'devices',
+    TASK = 'task',
+    CREATE_PLAN = 'create-plan',
+    SELECT_PLAN = 'select-plan',
+    FIRMWARES = 'firmwares',
+    FLIGHT_AREA = 'flight-area',
+
+    PILOT = 'pilot-login',
+    PILOT_HOME = 'pilot-home',
+    PILOT_MEDIA = 'pilot-media',
+    PILOT_LIVESHARE = 'pilot-liveshare',
+    PILOT_BIND = 'pilot-bind',
 
     TEST_PAGE='test-page',
     SYSTEM = 'system',
+    // 首页
+    AGRI_HOME='首页',
+    AGRI_LAND='数字农田',
+    AGRI_LAND_INFO='农田地块信息',
+    AGRI_LAND_SECTION='小区管理',
+    AGRI_BASE_MAP_DRAW='地块底图绘制',
+    AGRI_EXPERIMENT='实验信息',
+    AGRI_UAV='无人机数据采集',
+    AGRI_COMPUTE='计算服务',
+    AGRI_IMG_JOINT='图像拼接',
+    AGRI_THREE_CLOUD='三维点云重建',
+    AGRI_LAND_IDENTIFY='地块识别',
+    AGRI_SECTION_IDENTIFY='小区识别',
+    AGRI_OTHER_INDEX='其他表型指标'
 }
 
 export enum EStorageKey {

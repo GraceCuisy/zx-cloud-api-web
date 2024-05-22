@@ -38,12 +38,12 @@
           :visible="true"
           :draggable="false"
         /> -->
-        <!-- <el-amap-mouse-tool
+        <el-amap-mouse-tool
           v-if="created"
           :type="type"
           :auto-clear="false"
           @draw="draw"
-        /> -->
+        />
       </el-amap>
     </div>
   </div>

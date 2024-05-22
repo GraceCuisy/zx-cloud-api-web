@@ -31,6 +31,7 @@ declare module 'vue' {
     FlightAreaSyncPanel: typeof import('./src/components/flight-area/FlightAreaSyncPanel.vue')['default']
     GMap: typeof import('./src/components/GMap.vue')['default']
     LayersTree: typeof import('./src/components/LayersTree.vue')['default']
+    Leftbar: typeof import('./src/components/common/leftbar.vue')['default']
     LivestreamAgora: typeof import('./src/components/livestream-agora.vue')['default']
     LivestreamOthers: typeof import('./src/components/livestream-others.vue')['default']
     MediaPanel: typeof import('./src/components/MediaPanel.vue')['default']

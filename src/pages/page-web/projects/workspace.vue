@@ -1,22 +1,35 @@
 <template>
   <div class="project-app-wrapper">
-    <div class="left">
-      <Sidebar />
-      <div class="main-content uranus-scrollbar dark">
+    <template v-if="isDevicePage">
+      <div class="left-side-wrap">
+        <Sidebar />
+      </div>
+      <div key="right">
         <router-view />
       </div>
-    </div>
-    <div class="right">
-      <div class="map-wrapper">
-        <GMap />
+    </template>
+    <template v-else>
+      <div class="left">
+        <Sidebar />
+        <div class="main-content uranus-scrollbar dark">
+          <router-view />
+        </div>
       </div>
-      <div class="media-wrapper" v-if="root.$route.name === ERouterName.MEDIA">
-        <MediaPanel />
+      <div class="right">
+        <div class="map-wrapper">
+          <GMap />
+        </div>
+        <div
+          class="media-wrapper"
+          v-if="root.$route.name === ERouterName.MEDIA"
+        >
+          <MediaPanel />
+        </div>
+        <div class="task-wrapper" v-if="root.$route.name === ERouterName.TASK">
+          <TaskPanel />
+        </div>
       </div>
-      <div class="task-wrapper" v-if="root.$route.name === ERouterName.TASK">
-        <TaskPanel />
-      </div>
-    </div>
+    </template>
   </div>
 </template>
 <script lang="ts" setup>
@@ -29,9 +42,18 @@ import { getRoot } from '/@/root'
 import { useMyStore } from '/@/store'
 import { useConnectWebSocket } from '/@/hooks/use-connect-websocket'
 import EventBus from '/@/event-bus'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const root = getRoot()
 const store = useMyStore()
+const isDevicePage = ref<boolean>(route.path === '/devices')
+
+watch(() => route.path, newRoute => {
+  isDevicePage.value = newRoute === '/devices'
+})
 
 const messageHandler = async (payload: any) => {
   if (!payload) {
@@ -91,8 +113,7 @@ const messageHandler = async (payload: any) => {
     case EBizCode.ChargeOpen:
     case EBizCode.ChargeClose:
     case EBizCode.DeviceFormat:
-    case EBizCode.DroneFormat:
-    {
+    case EBizCode.DroneFormat: {
       store.commit('SET_DEVICES_CMD_EXECUTE_INFO', {
         biz_code: payload.biz_code,
         timestamp: payload.timestamp,
@@ -104,8 +125,7 @@ const messageHandler = async (payload: any) => {
     case EBizCode.FlyToPointProgress:
     case EBizCode.TakeoffToPointProgress:
     case EBizCode.JoystickInvalidNotify:
-    case EBizCode.DrcStatusNotify:
-    {
+    case EBizCode.DrcStatusNotify: {
       EventBus.emit('droneControlWs', payload)
       break
     }
@@ -128,17 +148,19 @@ const messageHandler = async (payload: any) => {
 
 // 监听ws 消息
 useConnectWebSocket(messageHandler)
-
 </script>
 <style lang="scss" scoped>
-@import '/@/styles/index.scss';
+@import "/@/styles/index.scss";
 
 .project-app-wrapper {
   display: flex;
   transition: width 0.2s ease;
   height: 100%;
   width: 100%;
-
+  .left-side-wrap{
+    width: 50px;
+    background-color: #232323;
+  }
   .left {
     display: flex;
     width: 335px;
@@ -156,7 +178,7 @@ useConnectWebSocket(messageHandler)
     flex-grow: 1;
     position: relative;
 
-    .map-wrapper{
+    .map-wrapper {
       width: 100%;
       height: 100%;
     }

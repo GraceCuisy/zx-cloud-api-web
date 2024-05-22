@@ -1,5 +1,5 @@
 <template>
-  <div class="demo-project-sidebar-wrapper flex-justify-between">
+  <div class="demo-project-sidebar-wrapper flex-justify-between" style="height:100%">
     <div>
     <router-link
       v-for="item in options"
@@ -54,12 +54,14 @@ export default defineComponent({
     const root = getRoot()
     const options = [
       { key: 0, label: 'Tsa', path: '/' + ERouterName.TSA, icon: 'TeamOutlined' },
-      { key: 1, label: 'Livestream', path: '/' + ERouterName.LIVESTREAM, icon: 'VideoCameraOutlined' },
-      { key: 2, label: 'Annotations', path: '/' + ERouterName.LAYER, icon: 'EnvironmentOutlined' },
+      { key: 7, label: 'DEVICES', path: '/' + ERouterName.DEVICES, icon: 'GroupOutlined' },
+      // { key: 1, label: 'Livestream', path: '/' + ERouterName.LIVESTREAM, icon: 'VideoCameraOutlined' },
+      // { key: 2, label: 'Annotations', path: '/' + ERouterName.LAYER, icon: 'EnvironmentOutlined' },
       { key: 3, label: 'Media Files', path: '/' + ERouterName.MEDIA, icon: 'PictureOutlined' },
       { key: 4, label: 'Flight Route Library', path: '/' + ERouterName.WAYLINE, icon: 'NodeIndexOutlined' },
-      { key: 5, label: 'Task Plan Library', path: '/' + ERouterName.TASK, icon: 'CalendarOutlined' },
-      { key: 6, label: 'Flight Area', path: '/' + ERouterName.FLIGHT_AREA, icon: 'GroupOutlined' },
+      // { key: 5, label: 'Task Plan Library', path: '/' + ERouterName.TASK, icon: 'CalendarOutlined' },
+      // { key: 6, label: 'Flight Area', path: '/' + ERouterName.FLIGHT_AREA, icon: 'GroupOutlined' },
+
     ]
 
     function selectedRoute (item: IOptions) {
@@ -68,7 +70,9 @@ export default defineComponent({
     }
 
     function goHome () {
-      root.$router.push('/' + ERouterName.MEMBERS)
+      // root.$router.push('/' + ERouterName.MEMBERS)
+      // root.$router.push('/' + ERouterName.AGRI_HOME)
+      root.$router.push('/' + ERouterName.AGRI_LAND)
     }
 
     return {

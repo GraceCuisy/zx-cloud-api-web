@@ -38,12 +38,13 @@
 
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
-import { defineComponent, onMounted, ref } from 'vue'
+import { computed, defineComponent, onMounted, reactive, ref } from 'vue'
 import { getRoot } from '/@/root'
 import { getPlatformInfo } from '/@/api/manage'
 import { ELocalStorageKey, ERouterName } from '/@/types'
 import { UserOutlined, ExportOutlined } from '@ant-design/icons-vue'
 import cloudapi from '/@/assets/icons/cloudapi.png'
+import routes from '/@/router'
 
 const root = getRoot()
 
@@ -60,20 +61,28 @@ interface IOptions {
 }
 const username = ref(localStorage.getItem(ELocalStorageKey.Username))
 const workspaceName = ref('')
-const options = [
-  { key: 0, label: ERouterName.WORKSPACE.charAt(0).toUpperCase() + ERouterName.WORKSPACE.substr(1), path: '/' + ERouterName.WORKSPACE },
-  { key: 1, label: ERouterName.MEMBERS.charAt(0).toUpperCase() + ERouterName.MEMBERS.substr(1), path: '/' + ERouterName.MEMBERS },
-  { key: 2, label: ERouterName.DEVICES.charAt(0).toUpperCase() + ERouterName.DEVICES.substr(1), path: '/' + ERouterName.DEVICES },
-  { key: 3, label: ERouterName.FIRMWARES.charAt(0).toUpperCase() + ERouterName.FIRMWARES.substr(1), path: '/' + ERouterName.FIRMWARES },
-]
+// const options = [
+//   { key: 0, label: ERouterName.WORKSPACE.charAt(0).toUpperCase() + ERouterName.WORKSPACE.substr(1), path: '/' + ERouterName.WORKSPACE },
+//   { key: 1, label: ERouterName.MEMBERS.charAt(0).toUpperCase() + ERouterName.MEMBERS.substr(1), path: '/' + ERouterName.MEMBERS },
+//   { key: 2, label: ERouterName.DEVICES.charAt(0).toUpperCase() + ERouterName.DEVICES.substr(1), path: '/' + ERouterName.DEVICES },
+//   { key: 3, label: ERouterName.FIRMWARES.charAt(0).toUpperCase() + ERouterName.FIRMWARES.substr(1), path: '/' + ERouterName.FIRMWARES },
+// ]
 
 const selected = ref<string>(root.$route.path)
+const optionRoutes = reactive(root.$router.options.routes)
+const options = computed(() => optionRoutes.filter(i => i.path !== '/').map((i, index) => {
+  return {
+    key: index,
+    label: i.name,
+    path: i.path,
+  }
+}))
 
 onMounted(() => {
   getPlatformInfo().then(res => {
     workspaceName.value = res.data.workspace_name
   })
-  console.log('routes==>', root.$router.getRoutes())
+  console.log('routes111==>', root.$router.options.routes)
 })
 
 function selectedRoute (path: string) {
