@@ -10,3 +10,9 @@ export const getLandList = async function (userId:string, params:LandListParams)
   })
   return result.data
 }
+// add element
+export const postElementsReq = async (pid: string, body: PostElementsBody): Promise<IWorkspaceResponse<{ id: string }>> => {
+  const url = `${PREFIX}/workspaces/` + workspace_id + `/element-groups/${pid}/elements`
+  const result = await request.post(url, body)
+  return result.data
+}

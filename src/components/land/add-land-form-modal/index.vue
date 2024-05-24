@@ -19,22 +19,24 @@
       <div class="form-wrap" v-if="modalLandInfoStage === 2">
         <div class="form-btn-wrap">
           <div>地块属性信息</div>
-          <a-button>保存</a-button>
-          <a-button type="primary">退出</a-button>
+          <a-button  @click.prevent="onSubmit">保存</a-button>
+          <a-button type="primary" @click="resetForm">退出</a-button>
         </div>
         <a-form
+          ref="formRef"
           :model="formState"
+          :rules="rules"
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
         >
-          <a-form-item label="名称">
+          <a-form-item label="名称" name="name">
             <a-input v-model:value="formState.name" />
           </a-form-item>
-          <a-form-item label="所在地区">
-            <a-input v-model:value="formState.desc" />
+          <a-form-item label="所在地区" name="region">
+            <a-input v-model:value="formState.region" />
           </a-form-item>
-          <a-form-item label="面积（m²）">
-            <a-input v-model:value="formState.name" />
+          <a-form-item label="面积（m²）" name="area">
+            <a-input v-model:value="formState.area" />
           </a-form-item>
           <!-- <a-form-item label="经度">
             <a-input v-model:value="formState.desc" />
@@ -42,17 +44,17 @@
           <a-form-item label="纬度">
             <a-input v-model:value="formState.desc" />
           </a-form-item> -->
-          <a-form-item label="所属单位">
-            <a-input v-model:value="formState.name" />
+          <a-form-item label="所属单位" name="company">
+            <a-input v-model:value="formState.company" />
           </a-form-item>
-          <a-form-item label="负责人">
-            <a-input v-model:value="formState.name" />
+          <a-form-item label="负责人" name="resPersion">
+            <a-input v-model:value="formState.resPersion" />
           </a-form-item>
-          <a-form-item label="对应文件">
-            <a-input v-model:value="formState.name" />
+          <a-form-item label="对应文件" name="fileId">
+            <a-input v-model:value="formState.fileId" />
           </a-form-item>
-          <a-form-item label="备注">
-            <a-textarea v-model:value="formState.name" />
+          <a-form-item label="备注" name="note">
+            <a-textarea v-model:value="formState.note" />
           </a-form-item>
         </a-form>
       </div>
@@ -80,6 +82,7 @@ import step2 from '/@/components/land/add-land-form-modal/imgs/step2.png'
 import step3 from '/@/components/land/add-land-form-modal/imgs/step3.png'
 import step4 from '/@/components/land/add-land-form-modal/imgs/step4.png'
 import { GeoType } from '../../../types/mapLayer'
+import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
 
 // type TFunction = (visible:Boolean)=>void
 // type SFunction = ()=>void
@@ -88,12 +91,10 @@ const stepArr = [step1, step2, step3, step4]
 const props = defineProps({
   visible: Boolean,
   landInfoStage: Number,
-  // handleVisibleChange: Function as PropType<TFunction>,
-  // handleSubmit: Function as PropType<SFunction>,
 })
 const emit = defineEmits([
   'handleVisibleChange',
-  'handleSubmit',
+  'handleAddFormSubmit',
   // 'handleLandStageChange',
   'handleClickNextBtn',
 ])
@@ -102,16 +103,46 @@ const userId = localStorage.getItem(ELocalStorageKey.UserId)!
 
 const labelCol = { span: 8 }
 const wrapperCol = { span: 16 }
+const formRef = ref()
 const formState: UnwrapRef<FormState> = reactive({
-  name: '',
+  name: undefined,
   region: undefined,
-  date1: undefined,
-  delivery: false,
-  type: [],
-  resource: '',
-  desc: '',
+  area: 0,
+  company: undefined,
+  resPersion: undefined,
+  fileId: undefined,
+  note: undefined,
 })
 // const visible = ref<boolean>(false)
+
+const rules = {
+  name: [
+    { required: true, message: '请输入地块名称', trigger: 'blur' },
+  ],
+  region: [
+    {
+      required: true,
+      message: '请输入所在地区',
+      trigger: 'blur',
+    },
+  ],
+  area: [{ required: true, message: '请输入面积', trigger: 'blur' },
+    {
+      validator: (rule:any, value:any, callback:any) => {
+        if (!value || /^-?\d+(\.\d+)?$/.test(value)) {
+          callback()
+        } else {
+          callback(new Error('请输入合法的数字'))
+        }
+      },
+    },
+
+  ],
+  company: [{ required: true, message: '请输入所属单位', trigger: 'blur' }],
+  resPersion: [{ required: true, message: '请输入负责人', trigger: 'blur' }],
+  fileId: [{ required: true, message: '请输入对应文件', trigger: 'blur' }],
+  note: [{ required: true, message: '请输入备注', trigger: 'blur' }],
+}
 
 const modalVisible = computed({
   get: () => props.visible,
@@ -134,7 +165,18 @@ const handleOk = (e: MouseEvent) => {
 }
 
 const onSubmit = () => {
-  console.log('submit!', toRaw(formState))
+  formRef.value
+    .validate()
+    .then(() => {
+      console.log('values', formState, toRaw(formState))
+      emit('handleAddFormSubmit', toRaw(formState))
+    })
+    .catch((error: ValidateErrorEntity<FormState>) => {
+      console.log('error', error)
+    })
+}
+const resetForm = () => {
+  formRef.value.resetFields()
 }
 
 // 获取地块信息列表信息

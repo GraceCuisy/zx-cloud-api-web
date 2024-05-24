@@ -14,10 +14,11 @@ export interface LandListParams {
 }
 
 export interface FormState {
-  name: string;
-  region: string | undefined;
-  delivery: boolean;
-  type: string[];
-  resource: string;
-  desc: string;
+  name?: string;
+  region?: string;
+  area?: number;
+  company?: string;
+  resPersion?: string;
+  fileId?: string;
+  note?: string;
 }

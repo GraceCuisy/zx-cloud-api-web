@@ -44,13 +44,49 @@
         v-model:landInfoStage="landInfoStage"
         @handleVisibleChange="onAddFormVisibleChange"
         @handleClickNextBtn="onClickNextBtn"
+        @handleAddFormSubmit="onAddFormSubmit"
       ></AddLandFormModal>
     </div>
     <div class="right-wrap">
       <el-amap :center="center" :zoom="zoom" @init="init">
         <el-amap-layer-satellite :visible="visible" />
+        <!-- <el-amap-layer-wms
+        :visible="true"
+        :url="url"
+        :blend="false"
+        :params="params"
+      /> -->
+        <!-- <el-amap-layer-mapbox-vector-tile
+          :visible="true"
+          url="http://192.168.22.120:8080/geoserver/nyc_roads/wms?service=WMS&version=1.1.0&request=GetMap&layers=nyc_roads%3Anyc_buildings&bbox=983797.5%2C207443.0%2C991899.0625%2C218850.828125&width=545&height=768&srs=EPSG%3A2908&styles=&format=geojson"
+          :style="{
+            point: {
+              color: 'red',
+              borderWidth:
+                20 ,
+              borderColor: 'rgba(255,255,255,1)',
+            },
+            polygon: {
+              color: 'rgba(0,0,0,1)',
+              dash: [10, 0, 10, 0],
+              borderColor: 'rgba(30,112,255,1)',
+              borderWidth: 5,
+            },
+            line: {
+              color: 'rgba(20,140,40,1)',
+              lineWidth: 5,
+              dash: [10, 0, 10, 0],
+            },
+          }"
+        /> -->
         <!-- <el-amap-geojson
           :geo="testLandDataGcj02"
+          :polygon-options="polygonOptions1"
+          :visible="true"
+          :draggable="false"
+        /> -->
+        <!-- <el-amap-geojson
+          geo="http://192.168.22.120:8080/geoserver/nyc_roads/wms?service=WMS&version=1.1.0&request=GetMap&layers=nyc_roads%3Anyc_buildings&bbox=983797.5%2C207443.0%2C991899.0625%2C218850.828125&width=545&height=768&srs=EPSG%3A2908&styles=&format=geojson"
           :polygon-options="polygonOptions1"
           :visible="true"
           :draggable="false"
@@ -78,7 +114,7 @@ import { onMounted, reactive, ref, watch } from 'vue'
 import { ELocalStorageKey, EDeviceTypeName } from '/@/types'
 import { Device } from '/@/types/device'
 import { getLandList } from '/@/api/land'
-import { LandListParams } from '/@/types/land'
+import { FormState, LandListParams } from '/@/types/land'
 import { isNull } from 'lodash'
 
 const userId = localStorage.getItem(ELocalStorageKey.UserId)!
@@ -161,7 +197,7 @@ const addFormVisible = ref(false)
 // 地图勾画在第几步
 const landInfoStage = ref(1)
 const landFeature = reactive({
-  data: null
+  data: null,
 })
 
 const zoom = ref(12)
@@ -204,6 +240,13 @@ const handleAddBtnClick = () => {
   created.value = true
 }
 
+const onAddFormSubmit = (addFormData: FormState) => {
+  console.log('first', addFormData)
+  /** 根据勾画的geojson 使用truf工具，计算出图形中心点经纬度
+   * 组合全部的formData 调用新增地块接口 成功之后调用子组件的关闭弹框功能
+   * 子组件中清除表单 地图清除勾画数据，关闭鼠标工具 */
+}
+
 // 新增弹框显隐回调函数
 const onAddFormVisibleChange = (visible: boolean) => {
   addFormVisible.value = visible
@@ -211,9 +254,9 @@ const onAddFormVisibleChange = (visible: boolean) => {
 // 点击下一步
 const onClickNextBtn = () => {
   /** 当没有地块信息，弹框提示，请先勾画地块
-  * 当地块已经勾画好，有landFeature.data的信息，调用工具函数判断地块有没有交叉，有交叉，弹框提示让客户重新画
-  * 有地块勾画，地块勾画没交叉，把landStage变为2
-  *  */
+   * 当地块已经勾画好，有landFeature.data的信息，调用工具函数判断地块有没有交叉，有交叉，弹框提示让客户重新画
+   * 有地块勾画，地块勾画没交叉，把landStage变为2
+   *  */
   if (isNull(landFeature.data)) {
     message.warning('请先在地图上勾画地块')
   } else {
@@ -284,7 +327,6 @@ onMounted(() => {
   }
   getLandInfoList(landParams)
 })
-
 </script>
 <style scoped>
 .agri-land-info-container {
