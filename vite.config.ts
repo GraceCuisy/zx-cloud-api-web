@@ -37,15 +37,15 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => defineConfig(
       // 指定symbolId格式
       symbolId: 'icon-[dir]-[name]',
     }),
-    viteVConsole({
-      entry: path.resolve(__dirname, './src/main.ts'), // 入口文件
-      localEnabled: command === 'serve', // serve开发环境下
-      // enabled: command !== 'serve' || mode === 'test', // 打包环境下/发布测试包,
-      config: { // vconsole 配置项
-        maxLogNumber: 1000,
-        theme: 'light'
-      }
-    }),
+    // viteVConsole({
+    //   entry: path.resolve(__dirname, './src/main.ts'), // 入口文件
+    //   localEnabled: command === 'serve', // serve开发环境下
+    //   // enabled: command !== 'serve' || mode === 'test', // 打包环境下/发布测试包,
+    //   config: { // vconsole 配置项
+    //     maxLogNumber: 1000,
+    //     theme: 'light'
+    //   }
+    // }),
     PkgConfig(),
     OptimizationPersist()
     // [svgBuilder('./src/assets/icons/')] // All svg under src/icons/svg/ have been imported here, no need to import separately

@@ -7,7 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    copy: typeof import('./src/components/common/topbar copy.vue')['default']
+    AddLandForm: typeof import('./src/components/land/add-land-form.vue')['default']
+    AddLandFormModal: typeof import('./src/components/land/add-land-form-modal/index.vue')['default']
+    copy: typeof import('./src/components/land/add-land-form-modal/index copy.vue')['default']
     CreatePlan: typeof import('./src/components/task/CreatePlan.vue')['default']
     DeviceFirmwareStatus: typeof import('./src/components/devices/DeviceFirmwareStatus.vue')['default']
     DeviceFirmwareUpgrade: typeof import('./src/components/devices/device-upgrade/DeviceFirmwareUpgrade.vue')['default']
@@ -30,6 +32,7 @@ declare module 'vue' {
     FlightAreaPanel: typeof import('./src/components/flight-area/FlightAreaPanel.vue')['default']
     FlightAreaSyncPanel: typeof import('./src/components/flight-area/FlightAreaSyncPanel.vue')['default']
     GMap: typeof import('./src/components/GMap.vue')['default']
+    IndexBak: typeof import('./src/components/land/add-land-form-modal/index-bak.vue')['default']
     LayersTree: typeof import('./src/components/LayersTree.vue')['default']
     Leftbar: typeof import('./src/components/common/leftbar.vue')['default']
     LivestreamAgora: typeof import('./src/components/livestream-agora.vue')['default']

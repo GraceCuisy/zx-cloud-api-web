@@ -179,7 +179,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/' + ERouterName.AGRI_LAND_INFO,
         name: ERouterChineseName.AGRI_LAND_INFO,
-        component: () => import('../pages/page-web/agri-projects/developing-page.vue'),
+        component: () => import('../pages/page-web/agri-projects/agri-land-info.vue'),
         // children: [
         //   {
         //     path: '/' + 'agri-land-info-test',

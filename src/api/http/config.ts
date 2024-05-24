@@ -6,8 +6,10 @@ export const CURRENT_CONFIG = {
   appLicense: 'kSWCapzgu185rJvspvr2aED9x+7Juwqh+2PIa4FMOVpQcAmWp8K2Lug2QqdMfJ1UzJN8qNmeemQHTadANCBgwgURMmYTY2gOx++2Gzpn/WW9S2sOPYKlXSm3sDALU0091zSUmhze5GP25IQ6056ivVV+KZMYoy98x/Jjy44f618=', // You need to go to the development website to apply.
 
   // http
-  baseURL: 'http://120.48.20.114:6789/', // This url must end with "/". Example: 'http://192.168.1.1:6789/'
-  websocketURL: 'ws://120.48.20.114:6789/api/v1/ws', // Example: 'ws://192.168.1.1:6789/api/v1/ws'
+  // baseURL: 'http://120.48.20.114:6789/', // This url must end with "/". Example: 'http://192.168.1.1:6789/'
+  // websocketURL: 'ws://120.48.20.114:6789/api/v1/ws', // Example: 'ws://192.168.1.1:6789/api/v1/ws'
+  baseURL: 'http://192.168.1.102:6789/', // This url must end with "/". Example: 'http://192.168.1.1:6789/'
+  websocketURL: 'ws://192.168.1.102:6789/api/v1/ws', // Example: 'ws://192.168.1.1:6789/api/v1/ws'
 
   // livestreaming
   // RTMP  Note: This IP is the address of the streaming server. If you want to see livestream on web page, you need to convert the RTMP stream to WebRTC stream.
